@@ -2,7 +2,7 @@
 
 ///Question--1
 
-function twoSum(nums, target) {
+function sumOfTow(nums, target) {
     const numberMap = new Map();
   
     for (let i = 0; i < nums.length; i++) {
@@ -21,13 +21,13 @@ function twoSum(nums, target) {
   // Example usage
   const nums = [2, 7, 11, 15];
   const target = 9;
-  const result = twoSum(nums, target);
+  const result = sumOfTow(nums, target);
   console.log(result); // Output: [0, 1]
 
 
   ///Question--2
 
-  function removeElement(nums, val) {
+  function removeItems(nums, val) {
     let k = 0; // Number of elements not equal to val
   
     for (let i = 0; i < nums.length; i++) {
@@ -43,14 +43,14 @@ function twoSum(nums, target) {
   // Example usage
   const nums = [3, 2, 2, 3];
   const val = 3;
-  const result = removeElement(nums, val);
+  const result = removeItems(nums, val);
   console.log(result); // Output: 2
   console.log(nums); // Output: [2, 2, _, _]
 
 
   ///Question--3
 
-  function searchInsert(nums, target) {
+  function search(nums, target) {
     let left = 0;
     let right = nums.length - 1;
   
@@ -72,13 +72,13 @@ function twoSum(nums, target) {
   // Example usage
   const nums = [1, 3, 5, 6];
   const target = 5;
-  const result = searchInsert(nums, target);
+  const result = search(nums, target);
   console.log(result); // Output: 2
 
 
   ///Question--4
 
-  function plusOne(digits) {
+  function increment(digits) {
     const n = digits.length;
   
     // Start from the least significant digit
@@ -105,12 +105,13 @@ function twoSum(nums, target) {
   
   // Example usage
   const digits = [1, 2, 3];
-  const result = plusOne(digits);
+  const result = increment(digits);
   console.log(result); // Output: [1, 2, 4]
 
 
   ///Question--5
-  function merge(nums1, m, nums2, n) {
+
+  function mergeElement(nums1, m, nums2, n) {
     let i = m - 1; // Index of last element in nums1
     let j = n - 1; // Index of last element in nums2
     let k = m + n - 1; // Index of last position in merged nums1 array
@@ -140,13 +141,13 @@ function twoSum(nums, target) {
   const m = 3;
   const nums2 = [2, 5, 6];
   const n = 3;
-  merge(nums1, m, nums2, n);
+  mergeElement(nums1, m, nums2, n);
   console.log(nums1); // Output: [1, 2, 2, 3, 5, 6]
   
 
   ///Question--6
 
-  function containsDuplicate(nums) {
+  function duplicate(nums) {
     const set = new Set();
   
     for (let num of nums) {
@@ -161,7 +162,7 @@ function twoSum(nums, target) {
   
   // Example usage
   const nums = [1, 2, 3, 1];
-  const result = containsDuplicate(nums);
+  const result = duplicate(nums);
   console.log(result); // Output: true
 
 
@@ -187,7 +188,7 @@ function twoSum(nums, target) {
 
   ///Question--8
 
-  function findErrorNums(nums) {
+  function findError(nums) {
     const set = new Set();
     let duplicate, missing;
     const n = nums.length;
@@ -210,7 +211,7 @@ function twoSum(nums, target) {
   
   // Example usage
   const nums = [1, 2, 2, 4];
-  const result = findErrorNums(nums);
+  const result = findError(nums);
   console.log(result); // Output: [2, 3]
 
   ////////////////////////END\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
