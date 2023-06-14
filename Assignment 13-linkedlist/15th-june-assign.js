@@ -1,403 +1,675 @@
-////// SOLUTIONS OF THE ASSIGNMENT QUESTIONS--12 ///////
+////// SOLUTIONS OF THE ASSIGNMENT QUESTIONS--13 ///////
 
 //// Question--1 ////
 
 class Node {
-    constructor(data) {
-      this.data = data;
-      this.next = null;
-    }
+  constructor(value) {
+    this.data = value;
+    this.next = null;
   }
-  
-  class LinkedList {
-    constructor() {
-      this.head = null;
-    }
-  
-    insert(data) {
-      const newNode = new Node(data);
-      if (!this.head) {
-        this.head = newNode;
-      } else {
-        let current = this.head;
-        while (current.next) {
-          current = current.next;
-        }
-        current.next = newNode;
-      }
-    }
-  
-    deleteMiddle() {
-      if (!this.head || !this.head.next) {
-        // Empty list or only one node
-        return;
-      }
-  
-      let slow = this.head;
-      let fast = this.head;
-      let prev = null;
-  
-      while (fast && fast.next) {
-        fast = fast.next.next;
-        prev = slow;
-        slow = slow.next;
-      }
-  
-      // Skip the middle node(s)
-      prev.next = slow.next;
-    }
-  
-    display() {
+}
+
+class LinkedList {
+  constructor() {
+    this.head = null;
+  }
+
+  addNode(value) {
+    const newNode = new Node(value);
+    if (!this.head) {
+      this.head = newNode;
+    } else {
       let current = this.head;
-      while (current) {
-        console.log(current.data);
+      while (current.next) {
         current = current.next;
       }
+      current.next = newNode;
     }
   }
-  
-  // Example 1
-  const list1 = new LinkedList();
-  list1.insert(1);
-  list1.insert(2);
-  list1.insert(3);
-  list1.insert(4);
-  list1.insert(5);
-  list1.deleteMiddle();
-  list1.display(); // Output: 1 2 4 5
-  
-  // Example 2
-  const list2 = new LinkedList();
-  list2.insert(2);
-  list2.insert(4);
-  list2.insert(6);
-  list2.insert(7);
-  list2.insert(5);
-  list2.insert(1);
-  list2.deleteMiddle();
-  list2.display(); // Output: 2 4 6 5 1
+
+  displayList() {
+    let current = this.head;
+    let result = '';
+    while (current) {
+      result += current.data + '->';
+      current = current.next;
+    }
+    result += 'null';
+    console.log(result);
+  }
+}
+
+function createNewList(list1, list2) {
+  if (!list1.head || !list2.head) {
+    return null;
+  }
+
+  const newList = new LinkedList();
+  let current1 = list1.head;
+  let current2 = list2.head;
+
+  while (current1 && current2) {
+    const greaterNode = current1.data >= current2.data ? current1.data : current2.data;
+    newList.addNode(greaterNode);
+    current1 = current1.next;
+    current2 = current2.next;
+  }
+
+  return newList;
+}
+
+// Example usage
+const list1 = new LinkedList();
+list1.addNode(5);
+list1.addNode(2);
+list1.addNode(3);
+list1.addNode(8);
+
+const list2 = new LinkedList();
+list2.addNode(1);
+list2.addNode(7);
+list2.addNode(4);
+list2.addNode(5);
+
+const newList = createNewList(list1, list2);
+newList.displayList();
 
 
 //// Question--2 ////
 
 class Node {
-    constructor(data) {
-      this.data = data;
-      this.next = null;
+  constructor(value) {
+    this.data = value;
+    this.next = null;
+  }
+}
+
+class LinkedList {
+  constructor() {
+    this.head = null;
+  }
+
+  addNode(value) {
+    const newNode = new Node(value);
+    if (!this.head) {
+      this.head = newNode;
+    } else {
+      let current = this.head;
+      while (current.next) {
+        current = current.next;
+      }
+      current.next = newNode;
     }
   }
-  
-  class LinkedList {
-    constructor() {
-      this.head = null;
+
+  displayList() {
+    let current = this.head;
+    let result = '';
+    while (current) {
+      result += current.data + '->';
+      current = current.next;
     }
-  
-    insert(data) {
-      const newNode = new Node(data);
-      if (!this.head) {
-        this.head = newNode;
-      } else {
-        let current = this.head;
-        while (current.next) {
-          current = current.next;
-        }
-        current.next = newNode;
-      }
-    }
-  
-    hasLoop() {
-      let slow = this.head;
-      let fast = this.head;
-  
-      while (fast && fast.next) {
-        slow = slow.next;
-        fast = fast.next.next;
-  
-        if (slow === fast) {
-          return true; // Loop detected
-        }
-      }
-  
-      return false; // No loop found
+    result += 'null';
+    console.log(result);
+  }
+}
+
+function removeDuplicates(list) {
+  if (!list.head || !list.head.next) {
+    return list;
+  }
+
+  let current = list.head;
+
+  while (current.next) {
+    if (current.data === current.next.data) {
+      current.next = current.next.next;
+    } else {
+      current = current.next;
     }
   }
-  
-  // Example 1
-  const list1 = new LinkedList();
-  list1.insert(1);
-  list1.insert(3);
-  list1.insert(4);
-  list1.head.next.next.next = list1.head.next;
-  console.log(list1.hasLoop()); // Output: true
-  
-  // Example 2
-  const list2 = new LinkedList();
-  list2.insert(1);
-  list2.insert(8);
-  list2.insert(3);
-  list2.insert(4);
-  console.log(list2.hasLoop()); // Output: false
+
+  return list;
+}
+
+// Example usage
+const list = new LinkedList();
+list.addNode(11);
+list.addNode(11);
+list.addNode(11);
+list.addNode(21);
+list.addNode(43);
+list.addNode(43);
+list.addNode(60);
+
+console.log("Original List:");
+list.displayList();
+
+removeDuplicates(list);
+
+console.log("List after removing duplicates:");
+list.displayList();
 
 
 //// Question--3 ////
 
 class Node {
-    constructor(data) {
-      this.data = data;
-      this.next = null;
+  constructor(value) {
+    this.data = value;
+    this.next = null;
+  }
+}
+
+class LinkedList {
+  constructor() {
+    this.head = null;
+  }
+
+  addNode(value) {
+    const newNode = new Node(value);
+    if (!this.head) {
+      this.head = newNode;
+    } else {
+      let current = this.head;
+      while (current.next) {
+        current = current.next;
+      }
+      current.next = newNode;
     }
   }
-  
-  class LinkedList {
-    constructor() {
-      this.head = null;
+
+  displayList() {
+    let current = this.head;
+    let result = '';
+    while (current) {
+      result += current.data + '->';
+      current = current.next;
     }
-  
-    insert(data) {
-      const newNode = new Node(data);
-      if (!this.head) {
-        this.head = newNode;
-      } else {
-        let current = this.head;
-        while (current.next) {
-          current = current.next;
-        }
-        current.next = newNode;
-      }
-    }
-  
-    findNthFromEnd(n) {
-      if (n <= 0) {
-        return -1; // Invalid input
-      }
-  
-      let slow = this.head;
-      let fast = this.head;
-  
-      // Move the fast pointer ahead by n positions
-      for (let i = 0; i < n; i++) {
-        if (fast === null) {
-          return -1; // n exceeds the length of the linked list
-        }
-        fast = fast.next;
-      }
-  
-      // Move both pointers together until fast reaches the end
-      while (fast !== null) {
-        slow = slow.next;
-        fast = fast.next;
-      }
-  
-      if (slow !== null) {
-        return slow.data; // Return the data of the Nth node from the end
-      } else {
-        return -1; // Empty linked list
-      }
-    }
+    result += 'null';
+    console.log(result);
   }
-  
-  // Example 1
-  const list1 = new LinkedList();
-  list1.insert(1);
-  list1.insert(2);
-  list1.insert(3);
-  list1.insert(4);
-  list1.insert(5);
-  list1.insert(6);
-  list1.insert(7);
-  list1.insert(8);
-  list1.insert(9);
-  console.log(list1.findNthFromEnd(2)); // Output: 8
-  
-  // Example 2
-  const list2 = new LinkedList();
-  list2.insert(10);
-  list2.insert(5);
-  list2.insert(100);
-  list2.insert(5);
-  console.log(list2.findNthFromEnd(5)); // Output: -1
+}
+
+function reverseKNodes(list, k) {
+  if (!list.head || k <= 1) {
+    return list;
+  }
+
+  const reverse = (head, count) => {
+    let prev = null;
+    let current = head;
+    let next = null;
+
+    while (current && count > 0) {
+      next = current.next;
+      current.next = prev;
+      prev = current;
+      current = next;
+      count--;
+    }
+
+    return [prev, current];
+  };
+
+  let current = list.head;
+  let newHead = null;
+  let prevTail = null;
+
+  while (current) {
+    let tail = current;
+    let count = k;
+
+    while (tail && count > 1) {
+      tail = tail.next;
+      count--;
+    }
+
+    if (!tail) {
+      if (!newHead) {
+        newHead = current;
+      } else {
+        prevTail.next = current;
+      }
+      break;
+    }
+
+    let nextHead = tail.next;
+    tail.next = null;
+
+    const [reversedHead, reversedTail] = reverse(current, k);
+    
+    if (!newHead) {
+      newHead = reversedHead;
+    } else {
+      prevTail.next = reversedHead;
+    }
+
+    prevTail = reversedTail;
+    current = nextHead;
+  }
+
+  list.head = newHead;
+  return list;
+}
+
+// Example usage
+const list = new LinkedList();
+list.addNode(1);
+list.addNode(2);
+list.addNode(2);
+list.addNode(4);
+list.addNode(5);
+list.addNode(6);
+list.addNode(7);
+list.addNode(8);
+
+console.log("Original List:");
+list.displayList();
+
+const k = 4;
+reverseKNodes(list, k);
+
+console.log(`List after reversing every ${k} nodes:`);
+list.displayList();
 
 
 //// Question--4 ////
+
+class Node {
+  constructor(value) {
+    this.data = value;
+    this.next = null;
+  }
+}
+
+class LinkedList {
+  constructor() {
+    this.head = null;
+  }
+
+  addNode(value) {
+    const newNode = new Node(value);
+    if (!this.head) {
+      this.head = newNode;
+    } else {
+      let current = this.head;
+      while (current.next) {
+        current = current.next;
+      }
+      current.next = newNode;
+    }
+  }
+
+  displayList() {
+    let current = this.head;
+    let result = '';
+    while (current) {
+      result += current.data + '->';
+      current = current.next;
+    }
+    result += 'null';
+    console.log(result);
+  }
+}
+
+function reverseAlternateKNodes(list, k) {
+  if (!list.head || k <= 1) {
+    return list;
+  }
+
+  let current = list.head;
+  let prev = null;
+
+  let shouldReverse = true;
+  let count = 0;
+  let prevSegmentTail = null;
+
+  while (current) {
+    count++;
+
+    if (shouldReverse && count % k === 1) {
+      let segmentTail = current;
+      let segmentPrev = prev;
+      let segmentNext = null;
+
+      while (current && count % k !== 0) {
+        const next = current.next;
+        current.next = segmentNext;
+        segmentNext = current;
+        current = next;
+        count++;
+      }
+
+      if (!prevSegmentTail) {
+        list.head = segmentNext;
+      } else {
+        prevSegmentTail.next = segmentNext;
+      }
+
+      prevSegmentTail = segmentTail;
+      segmentTail.next = current;
+      prev = segmentPrev;
+    } else {
+      prev = current;
+      current = current.next;
+    }
+
+    shouldReverse = !shouldReverse;
+  }
+
+  return list;
+}
+
+// Example usage
+const list = new LinkedList();
+list.addNode(1);
+list.addNode(2);
+list.addNode(3);
+list.addNode(4);
+list.addNode(5);
+list.addNode(6);
+list.addNode(7);
+list.addNode(8);
+list.addNode(9);
+
+console.log("Original List:");
+list.displayList();
+
+const k = 3;
+reverseAlternateKNodes(list, k);
+
+console.log(`List after reversing every alternate ${k} nodes:`);
+list.displayList();
+
+
 //// Question--5 ////
+
+class Node {
+  constructor(value) {
+    this.data = value;
+    this.next = null;
+  }
+}
+
+class LinkedList {
+  constructor() {
+    this.head = null;
+  }
+
+  addNode(value) {
+    const newNode = new Node(value);
+    if (!this.head) {
+      this.head = newNode;
+    } else {
+      let current = this.head;
+      while (current.next) {
+        current = current.next;
+      }
+      current.next = newNode;
+    }
+  }
+
+  displayList() {
+    let current = this.head;
+    let result = '';
+    while (current) {
+      result += current.data + '->';
+      current = current.next;
+    }
+    result += 'null';
+    console.log(result);
+  }
+
+  deleteLastOccurrence(key) {
+    if (!this.head) {
+      return;
+    }
+
+    let lastOccurrence = null;
+    let prevLastOccurrence = null;
+    let current = this.head;
+    let prev = null;
+
+    while (current) {
+      if (current.data === key) {
+        lastOccurrence = current;
+        prevLastOccurrence = prev;
+      }
+      prev = current;
+      current = current.next;
+    }
+
+    if (!lastOccurrence) {
+      return;
+    }
+
+    if (!prevLastOccurrence) {
+      this.head = lastOccurrence.next;
+    } else {
+      prevLastOccurrence.next = lastOccurrence.next;
+    }
+  }
+}
+
+// Example usage
+const list = new LinkedList();
+list.addNode(1);
+list.addNode(2);
+list.addNode(3);
+list.addNode(5);
+list.addNode(2);
+list.addNode(10);
+
+console.log("Original List:");
+list.displayList();
+
+const key = 2;
+list.deleteLastOccurrence(key);
+
+console.log(`List after deleting last occurrence of ${key}:`);
+list.displayList();
+
+
 //// Question--6 ////
 
 class Node {
-    constructor(data) {
-      this.data = data;
-      this.next = null;
-    }
+  constructor(value) {
+    this.data = value;
+    this.next = null;
   }
-  
-  class LinkedList {
-    constructor() {
-      this.head = null;
-    }
-  
-    insert(data) {
-      const newNode = new Node(data);
-      if (!this.head) {
-        this.head = newNode;
-      } else {
-        let current = this.head;
-        while (current.next) {
-          current = current.next;
-        }
-        current.next = newNode;
-      }
-    }
-  
-    retainAndDeleteNodes(M, N) {
-      if (!this.head) {
-        return;
-      }
-  
+}
+
+class LinkedList {
+  constructor() {
+    this.head = null;
+  }
+
+  addNode(value) {
+    const newNode = new Node(value);
+    if (!this.head) {
+      this.head = newNode;
+    } else {
       let current = this.head;
-      let prev = null;
-      let count = 0;
-  
-      // Traverse the linked list
-      while (current) {
-        count++;
-  
-        // Retain M nodes
-        if (count % (M + N) <= M) {
-          prev = current;
-          current = current.next;
-        } else {
-          // Delete N nodes
-          let tempCount = 0;
-          while (current && tempCount < N) {
-            current = current.next;
-            tempCount++;
-          }
-  
-          // Adjust the next pointer of the previous node
-          prev.next = current;
-        }
+      while (current.next) {
+        current = current.next;
       }
+      current.next = newNode;
     }
   }
-  
-  // Example 1
-  const list1 = new LinkedList();
-  list1.insert(1);
-  list1.insert(2);
-  list1.insert(3);
-  list1.insert(4);
-  list1.insert(5);
-  list1.insert(6);
-  list1.insert(7);
-  list1.insert(8);
-  list1.retainAndDeleteNodes(2, 2);
-  console.log(list1.head); // Output: Node { data: 1, next: Node { data: 2, next: Node { data: 5, next: Node { data: 6, next: null } } } }
-  
-  // Example 2
-  const list2 = new LinkedList();
-  list2.insert(1);
-  list2.insert(2);
-  list2.insert(3);
-  list2.insert(4);
-  list2.insert(5);
-  list2.insert(6);
-  list2.insert(7);
-  list2.insert(8);
-  list2.insert(9);
-  list2.insert(10);
-  list2.retainAndDeleteNodes(3, 2);
-  console.log(list2.head); // Output: Node { data: 1, next: Node { data: 2, next: Node { data: 3, next: Node { data: 6, next: Node { data: 7, next: Node { data: 8, next: null } } } } } }
-  
-  // Example 3
-  const list3 = new LinkedList();
-  list3.insert(1);
-  list3.insert(2);
-  list3.insert(3);
-  list3.insert(4);
-  list3.insert(5);
-  list3.insert(6);
-  list3.insert(7);
-  list3.insert(8);
-  list3.insert(9);
-  list3.insert(10);
-  list3.retainAndDeleteNodes(1, 1);
-  console.log(list3.head); // Output: Node { data: 1, next: Node { data: 3, next: Node { data: 5, next: Node { data: 7, next: Node { data: 9, next: null } } } } }
+
+  displayList() {
+    let current = this.head;
+    let result = '';
+    while (current) {
+      result += current.data + '->';
+      current = current.next;
+    }
+    result += 'null';
+    console.log(result);
+  }
+}
+
+function mergeSortedLists(listA, listB) {
+  if (!listA.head) {
+    return listB;
+  }
+  if (!listB.head) {
+    return listA;
+  }
+
+  let head = null;
+  let tail = null;
+  let nodeA = listA.head;
+  let nodeB = listB.head;
+
+  if (nodeA.data <= nodeB.data) {
+    head = nodeA;
+    nodeA = nodeA.next;
+  } else {
+    head = nodeB;
+    nodeB = nodeB.next;
+  }
+  tail = head;
+
+  while (nodeA && nodeB) {
+    if (nodeA.data <= nodeB.data) {
+      tail.next = nodeA;
+      nodeA = nodeA.next;
+    } else {
+      tail.next = nodeB;
+      nodeB = nodeB.next;
+    }
+    tail = tail.next;
+  }
+
+  if (nodeA) {
+    tail.next = nodeA;
+  } else {
+    tail.next = nodeB;
+  }
+
+  listA.head = head;
+  return listA;
+}
+
+// Example usage
+const listA = new LinkedList();
+listA.addNode(5);
+listA.addNode(10);
+listA.addNode(15);
+
+const listB = new LinkedList();
+listB.addNode(2);
+listB.addNode(3);
+listB.addNode(20);
+
+console.log("List A:");
+listA.displayList();
+console.log("List B:");
+listB.displayList();
+
+mergeSortedLists(listA, listB);
+
+console.log("Merged List:");
+listA.displayList();
 
 
-//// Question--7 ////
-//// Question--8////
+//// Question--8 ////
 
 class Node {
-    constructor(data) {
-      this.data = data;
-      this.next = null;
+  constructor(value) {
+    this.data = value;
+    this.prev = null;
+    this.next = null;
+  }
+}
+
+class DoublyLinkedList {
+  constructor() {
+    this.head = null;
+  }
+
+  addNode(value) {
+    const newNode = new Node(value);
+    if (!this.head) {
+      this.head = newNode;
+    } else {
+      let current = this.head;
+      while (current.next) {
+        current = current.next;
+      }
+      current.next = newNode;
+      newNode.prev = current;
     }
   }
-  
-  class LinkedList {
-    constructor() {
-      this.head = null;
+
+  displayList() {
+    let current = this.head;
+    let result = '';
+    while (current) {
+      result += current.data + ' ';
+      current = current.next;
     }
-  
-    insert(data) {
-      const newNode = new Node(data);
-      if (!this.head) {
-        this.head = newNode;
-      } else {
-        let current = this.head;
-        while (current.next) {
-          current = current.next;
-        }
-        current.next = newNode;
-      }
+    console.log(result);
+  }
+
+  deleteNode(position) {
+    if (!this.head) {
+      return;
     }
-  
-    isCircular() {
-      if (!this.head) {
-        return false;
+
+    if (position === 1) {
+      this.head = this.head.next;
+      if (this.head) {
+        this.head.prev = null;
       }
-  
-      let slow = this.head;
-      let fast = this.head;
-  
-      while (fast && fast.next) {
-        slow = slow.next;
-        fast = fast.next.next;
-  
-        if (slow === fast) {
-          return true; // Circular linked list
-        }
-      }
-  
-      return false; // Not a circular linked list
+      return;
+    }
+
+    let current = this.head;
+    let count = 1;
+
+    while (current && count < position) {
+      current = current.next;
+      count++;
+    }
+
+    if (!current) {
+      return;
+    }
+
+    const prevNode = current.prev;
+    const nextNode = current.next;
+
+    if (prevNode) {
+      prevNode.next = nextNode;
+    }
+
+    if (nextNode) {
+      nextNode.prev = prevNode;
     }
   }
-  
-  // Create a circular linked list
-  const circularList = new LinkedList();
-  circularList.insert(1);
-  circularList.insert(2);
-  circularList.insert(3);
-  circularList.insert(4);
-  
-  // Make the linked list circular by connecting the last node to the first node
-  const lastNode = circularList.head;
-  while (lastNode.next) {
-    lastNode = lastNode.next;
-  }
-  lastNode.next = circularList.head;
-  
-  console.log(circularList.isCircular()); // Output: true
-  
-  // Create a non-circular linked list
-  const nonCircularList = new LinkedList();
-  nonCircularList.insert(1);
-  nonCircularList.insert(2);
-  nonCircularList.insert(3);
-  nonCircularList.insert(4);
-  
-  console.log(nonCircularList.isCircular()); // Output: false
+}
+
+// Example usage
+const list = new DoublyLinkedList();
+list.addNode(1);
+list.addNode(3);
+list.addNode(4);
+
+console.log("Original List:");
+list.displayList();
+
+const position = 3;
+list.deleteNode(position);
+
+console.log(`List after deleting node at position ${position}:`);
+list.displayList();
 
 
-///////////////////////////////// END //////////////////////////////////////////////////
-  
+
+
+
+
+
 
